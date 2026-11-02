@@ -1,0 +1,101 @@
+[
+  {
+    "id": "APP-01",
+    "title": "Crewneck & Ringer Tee Stack (5 Shirts)",
+    "category": "Physical Inventory",
+    "image": "9593.jpg",
+    "stock": 5,
+    "desc": "Includes White/Red Long-Sleeve Ringer, Brick Red, Navy, Charcoal Hanes, and Dark Grey tees.",
+    "options": [
+      {"label": "Buy 1 Blank Shirt (As-Is)", "price": 6},
+      {"label": "Custom Pressed Shirt (Pick Any DTF Graphic)", "price": 20},
+      {"label": "All 5 Blank Shirts Bundle", "price": 25}
+    ]
+  },
+  {
+    "id": "DTF-01",
+    "title": "Ready-to-Press DTF Graphic Transfers",
+    "category": "Physical Inventory",
+    "image": "9593.jpg",
+    "stock": 30,
+    "desc": "Themes: Star Spangled Stud, Merica, Girls Trip, Beach Squad, Boneyard Vibes, Santa Chicken, Bunny Kisses & more.",
+    "options": [
+      {"label": "Single DTF Transfer", "price": 4},
+      {"label": "5-Pack DTF Bundle", "price": 16},
+      {"label": "10-Pack Crafter Destash Bundle", "price": 28}
+    ]
+  },
+  {
+    "id": "DRK-01",
+    "title": "11oz Matte Black & White Ceramic Mug",
+    "category": "Physical Inventory",
+    "image": "9591.jpg",
+    "stock": 1,
+    "desc": "Sleek matte black outer shell with glossy white interior. Great for laser reveal engraving.",
+    "options": [
+      {"label": "Blank Mug (As-Is)", "price": 5},
+      {"label": "Custom Laser-Engraved Mug", "price": 15}
+    ]
+  },
+  {
+    "id": "WOD-01",
+    "title": "Natural Wood Plaques & Sign Blanks",
+    "category": "Physical Inventory",
+    "image": "9588.jpg",
+    "stock": 6,
+    "desc": "Large beveled wood plaque, 2 sealed Crafter's Square plank packs, and 3 thick solid wood blocks.",
+    "options": [
+      {"label": "Full Wood Blanks Bundle", "price": 15},
+      {"label": "1 Custom Laser-Engraved Plaque", "price": 25}
+    ]
+  },
+  {
+    "id": "ACC-01",
+    "title": "Full-Length Zippered Suit & Garment Cover",
+    "category": "Physical Inventory",
+    "image": "9594.jpg",
+    "stock": 1,
+    "desc": "Black breathable non-woven cover with white zipper trim and clear vinyl ID window.",
+    "options": [
+      {"label": "Blank Garment Cover", "price": 12},
+      {"label": "With Custom Vinyl Name / Emblem", "price": 22}
+    ]
+  },
+  {
+    "id": "SRV-01",
+    "title": "Digital Photography & Multi-Camera Video Production",
+    "category": "Services & Production",
+    "image": "9585.jpg",
+    "stock": 999,
+    "desc": "Professional multi-camera video recording, studio interviews, color matching, and professional digital photography.",
+    "options": [
+      {"label": "Studio / Event Video Shoot (Hourly)", "price": 75},
+      {"label": "Multi-Cam Interview Production Package", "price": 250},
+      {"label": "Digital Photography Session", "price": 125}
+    ]
+  },
+  {
+    "id": "SRV-02",
+    "title": "Precision Laser Engraving & Custom Apparel Printing",
+    "category": "Services & Production",
+    "image": "9588.jpg",
+    "stock": 999,
+    "desc": "Custom laser engraving on wood, drinkware, and acrylics via xTool M1, plus apparel printing and heat pressing.",
+    "options": [
+      {"label": "Custom Laser Engraving Project (Base)", "price": 45},
+      {"label": "Custom Apparel Batch Printing (Per Item)", "price": 25}
+    ]
+  },
+  {
+    "id": "SRV-03",
+    "title": "Website Management & Custom Web App Development",
+    "category": "Services & Production",
+    "image": "9585.jpg",
+    "stock": 999,
+    "desc": "Custom Python/Streamlit web application development, portal building, and responsive website management.",
+    "options": [
+      {"label": "Website Management & Maintenance (Monthly)", "price": 150},
+      {"label": "Custom Web App / Member Portal Build", "price": 500}
+    ]
+  }
+]

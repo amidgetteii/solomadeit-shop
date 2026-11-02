@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoloMadeIt | Custom Goods & Professional Services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- Colorful Top Glow & Header -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-64 bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-indigo-500/20 blur-3xl pointer-events-none -z-10"></div>
+
+  <header class="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-black tracking-tight bg-gradient-to-r from-amber-400 via-orange-400 to-pink-500 bg-clip-text text-transparent">SOLOMADEIT</h1>
+        <p class="text-xs text-slate-400 hidden sm:block font-medium">Custom Apparel • Laser Engraving • Media Production & Services</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="text-right hidden md:block">
+          <p class="text-xs text-slate-400">Direct Studio Contact</p>
+          <p class="text-xs font-mono font-bold text-amber-400">910-674-7501</p>
+        </div>
+        <button onclick="toggleCart()" class="relative bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold px-5 py-2.5 rounded-2xl transition shadow-lg shadow-amber-500/20 flex items-center gap-2">
+          <span>Cart / Booking</span>
+          <span id="cart-count" class="bg-slate-950 text-amber-400 text-xs px-2 py-0.5 rounded-full font-black">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Colorful Filter Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6 w-full">
+    <div class="border-b border-slate-800 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div>
+        <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500/10 to-pink-500/10 text-amber-300 border border-amber-500/20 text-xs font-bold px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
+          ✨ 100% INDEPENDENT STUDIO SHOP & BOOKING
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-white">Crafted Stock & Professional Services</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-3 max-w-2xl leading-relaxed">
+          Grab remaining studio inventory as-is or upgrade to custom-pressed/engraved pieces. Book professional media production, laser work, or web apps directly with zero middleman fees.
+        </p>
+      </div>
+      
+      <!-- Colorful Category Filters -->
+      <div class="flex flex-wrap gap-2">
+        <button onclick="filterCategory('All')" class="cat-btn bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-md shadow-amber-500/20">All Offerings</button>
+        <button onclick="filterCategory('Physical Inventory')" class="cat-btn bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-4 py-2.5 rounded-xl text-xs font-semibold transition">Physical Inventory</button>
+        <button onclick="filterCategory('Services & Production')" class="cat-btn bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-4 py-2.5 rounded-xl text-xs font-semibold transition">Services & Production</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product & Service Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+    <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-800/80 mt-16 py-8 px-4 text-center text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 SoloMadeIt / Solovision Creative Group. All rights reserved.</p>
+      <p class="font-mono text-slate-400">Contact: creativedesigntpy@gmail.com | 910-674-7501</p>
+    </div>
+  </footer>
+
+  <!-- Slide-Over Cart & Checkout Drawer -->
+  <div id="cart-drawer" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex justify-end transition-opacity">
+    <div class="bg-slate-900 border-l border-slate-800 w-full max-w-md h-full flex flex-col justify-between p-6 overflow-y-auto shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <h3 class="text-xl font-bold text-white">Your Order / Booking Request</h3>
+          <button onclick="toggleCart()" class="text-slate-400 hover:text-white p-2 text-sm font-bold">✕ Close</button>
+        </div>
+        <div id="cart-items" class="divide-y divide-slate-800/80 my-4 space-y-3"></div>
+      </div>
+
+      <div class="border-t border-slate-800 pt-4 space-y-4">
+        <div class="flex justify-between text-lg font-bold">
+          <span>Total Estimate:</span>
+          <span id="cart-total" class="text-amber-400">$0.00</span>
+        </div>
+
+        <div class="space-y-3">
+          <input id="cust-name" type="text" placeholder="Your Full Name / Organization" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-400 transition" />
+          <input id="cust-contact" type="text" placeholder="Email or Phone Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-400 transition" />
+          
+          <select id="cust-delivery" onchange="updateCartUI()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-300 focus:outline-none focus:border-amber-400 transition">
+            <option value="pickup">Studio Pickup / On-Location Service (Fayetteville/Hope Mills)</option>
+            <option value="shipping">Standard Shipping (For Physical Items - +$6.00)</option>
+          </select>
+
+          <select id="cust-pay-method" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-amber-400 font-semibold focus:outline-none focus:border-amber-400 transition">
+            <option value="PayPal">Pay Online via PayPal</option>
+            <option value="Zelle">Pay via Zelle (Wife's Direct Account)</option>
+            <option value="Cash">Cash / In-Person Payment</option>
+          </select>
+
+          <textarea id="cust-notes" rows="2" placeholder="Project details, shoot dates, custom engraving text, or specific requests..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-400 transition"></textarea>
+        </div>
+
+        <button onclick="submitOrder()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold py-3.5 rounded-xl transition shadow-lg shadow-amber-500/20">
+          Submit Booking / Order Request
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let inventory = [];
+    let cart = [];
+    let currentCategory = "All";
+
+    async function fetchInventory() {
+      const res = await fetch("/api/inventory");
+      inventory = await res.json();
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById("product-grid");
+      const filtered = currentCategory === "All" 
+        ? inventory 
+        : inventory.filter(item => item.category === currentCategory);
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl overflow-hidden flex flex-col justify-between p-6 shadow-xl hover:border-amber-500/50 transition group">
+          <div>
+            <div class="flex justify-between items-center text-xs text-slate-400 mb-3">
+              <span class="uppercase tracking-widest text-amber-400 font-extrabold">${item.category}</span>
+              <span class="bg-slate-900 px-2.5 py-1 rounded-md border border-slate-700 text-slate-300">${item.stock > 100 ? 'Available' : 'Stock: ' + item.stock}</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-300 transition">${item.title}</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-6">${item.desc}</p>
+          </div>
+
+          <div class="space-y-3 pt-4 border-t border-slate-700/60">
+            <select id="opt-${item.id}" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-400 transition">
+              ${item.options.map((opt, i) => `<option value="${i}">${opt.label} — $${opt.price.toFixed(2)}</option>`).join("")}
+            </select>
+            <button onclick="addToCart('${item.id}')" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition shadow">
+              Add to Request / Order
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'text-slate-950', 'font-bold', 'shadow-md', 'shadow-amber-500/20');
+        btn.classList.add('bg-slate-800/80', 'text-slate-300', 'border', 'border-slate-700/60', 'font-semibold');
+      });
+      event.target.classList.remove('bg-slate-800/80', 'text-slate-300', 'border', 'border-slate-700/60', 'font-semibold');
+      event.target.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'text-slate-950', 'font-bold', 'shadow-md', 'shadow-amber-500/20');
+      renderProducts();
+    }
+
+    function addToCart(id) {
+      const product = inventory.find(p => p.id === id);
+      const selectEl = document.getElementById(`opt-${id}`);
+      const optIndex = parseInt(selectEl.value);
+      const selectedOpt = product.options[optIndex];
+
+      cart.push({
+        id: product.id,
+        title: product.title,
+        optionIndex: optIndex,
+        optionLabel: selectedOpt.label,
+        price: selectedOpt.price
+      });
+      updateCartUI();
+      toggleCart();
+    }
+
+    function removeFromCart(i) {
+      cart.splice(i, 1);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      document.getElementById("cart-count").innerText = cart.length;
+      const container = document.getElementById("cart-items");
+
+      if (cart.length === 0) {
+        container.innerHTML = `<p class="text-sm text-slate-500 py-4 text-center">Your cart or booking list is empty.</p>`;
+      } else {
+        container.innerHTML = cart.map((item, i) => `
+          <div class="pt-3 flex justify-between items-start gap-2">
+            <div>
+              <p class="text-sm font-semibold text-white">${item.title}</p>
+              <p class="text-xs text-amber-400 font-mono">${item.optionLabel}</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-sm font-bold text-slate-200">$${item.price.toFixed(2)}</span>
+              <button onclick="removeFromCart(${i})" class="text-xs text-red-400 hover:text-red-300 p-1">✕</button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const delivery = document.getElementById("cust-delivery").value;
+      const shipping = (cart.length > 0 && delivery === "shipping") ? 6 : 0;
+      const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+      const total = subtotal + shipping;
+
+      document.getElementById("cart-total").innerText = `$${total.toFixed(2)}`;
+      return total;
+    }
+
+    function toggleCart() {
+      document.getElementById("cart-drawer").classList.toggle("hidden");
+    }
+
+    async function submitOrder() {
+      if (cart.length === 0) return alert("Your cart or booking list is empty!");
+      
+      const payload = {
+        cart: cart,
+        delivery: document.getElementById("cust-delivery").value,
+        payMethod: document.getElementById("cust-pay-method").value
+      };
+
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      const name = document.getElementById("cust-name").value.trim() || "Client";
+      const contact = document.getElementById("cust-contact").value.trim() || "Not provided";
+      const notes = document.getElementById("cust-notes").value.trim() || "None";
+      const itemLines = cart.map(i => `• ${i.title} (${i.optionLabel}) - $${i.price.toFixed(2)}`).join("\n");
+
+      if (data.payMethod === "PayPal") {
+        window.open(`https://www.paypal.com/paypalme/SoloMadeIt/${data.total.toFixed(2)}`, "_blank");
+      } else if (data.payMethod === "Zelle") {
+        alert(`Request #${data.orderId} submitted! Total is $${data.total.toFixed(2)}. Please send Zelle payment to your wife's account with memo #${data.orderId}.`);
+      }
+
+      const mailto = `mailto:${data.studioEmail}?subject=New Service Booking / Order #${data.orderId} ($${data.total.toFixed(2)})&body=Request ID: ${data.orderId}%0D%0AClient: ${name}%0D%0AContact: ${contact}%0D%0APayment: ${data.payMethod}%0D%0ANotes: ${notes}%0D%0A%0D%0ASelected Items/Services:%0D%0A${encodeURIComponent(itemLines)}%0D%0A%0D%0ATotal Estimate: $${data.total.toFixed(2)}`;
+      window.location.href = mailto;
+    }
+
+    fetchInventory();
+  </script>
+</body>
+</html>
