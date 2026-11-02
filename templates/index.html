@@ -3,86 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoloMadeIt | Custom Merchandise & Services</title>
+    <title>SoloMadeIt | Custom Apparel, Laser Engraving & Digital Hub</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-indigo-500 selection:text-white">
 
-    <!-- Header / Hero Section -->
-    <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <div class="bg-indigo-600 text-white font-black text-xl px-3 py-1.5 rounded-lg tracking-wider shadow-md">SMI</div>
+    <!-- Navbar / Header -->
+    <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-500/30">
+                    S
+                </div>
                 <div>
-                    <h1 class="text-xl font-black tracking-tight text-white">SOLOMADEIT</h1>
-                    <p class="text-xs text-slate-400 font-medium">Custom Apparel, Laser Engraving & Digital Hub</p>
+                    <h1 class="text-xl font-black tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">
+                        SOLOMADEIT
+                    </h1>
+                    <p class="text-xs text-indigo-400 font-semibold tracking-wider uppercase">Custom Merchandise &amp; Services</p>
                 </div>
             </div>
-            <div class="flex items-center gap-4">
-                <button onclick="openCartModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl font-semibold text-sm transition shadow-md flex items-center gap-2 cursor-pointer">
-                    🛒 Cart <span id="cart-count" class="bg-white text-indigo-900 px-2 py-0.5 rounded-full text-xs font-bold">0</span>
-                </button>
-            </div>
+
+            <!-- Cart Button -->
+            <button onclick="toggleCart()" class="relative bg-slate-800 hover:bg-slate-700 text-slate-200 px-5 py-2.5 rounded-xl font-medium transition-all duration-200 border border-slate-700/60 flex items-center space-x-2 shadow-md cursor-pointer">
+                <span>🛒 Cart</span>
+                <span id="cart-badge" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-md">0</span>
+            </button>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        
-        <!-- Welcome Banner -->
-        <div class="bg-gradient-to-r from-indigo-900/60 to-slate-800/60 border border-indigo-500/30 rounded-2xl p-6 sm:p-8 mb-10 shadow-xl">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">Welcome to the Official Storefront</h2>
-            <p class="text-slate-300 text-sm sm:text-base max-w-2xl">Browse custom merchandise, precision laser work, apparel, and creative services. Select your items and checkout smoothly.</p>
+    <!-- Hero Banner Section -->
+    <section class="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-950/40 via-slate-950 to-slate-950 border-b border-slate-900">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <span class="inline-block bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
+                Independent Custom Storefront
+            </span>
+            <h2 class="text-4xl sm:text-6xl font-black tracking-tight text-white mb-6">
+                Precision Engraving, Apparel &amp; Creative Media
+            </h2>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto font-normal leading-relaxed">
+                Welcome to the permanent hub for custom laser work, apparel, professional media production, and unique digital creations. Select your gear below and order smoothly.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Catalog Section -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex items-center justify-between mb-8">
+            <h3 class="text-2xl font-black text-white tracking-tight flex items-center space-x-2">
+                <span>📦 Available Inventory &amp; Services</span>
+            </h3>
+            <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Live Catalog</span>
         </div>
 
-        <!-- Catalog Section -->
-        <section>
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-white tracking-wide">Available Catalog</h3>
-                <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">Live Inventory</span>
-            </div>
-
-            <!-- Product Grid -->
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Products will load dynamically from inventory.json -->
-            </div>
-        </section>
-
+        <!-- Product Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Dynamically populated from inventory.json -->
+        </div>
     </main>
 
-    <!-- Shopping Cart Drawer / Modal -->
-    <div id="cart-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex justify-end">
-        <div class="bg-slate-900 border-l border-slate-800 w-full max-w-md h-full flex flex-col p-6 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
-                <h3 class="text-lg font-bold text-white">Your Cart</h3>
-                <button onclick="closeCartModal()" class="text-slate-400 hover:text-white text-xl font-bold cursor-pointer">&times;</button>
+    <!-- Shopping Cart Modal / Drawer -->
+    <div id="cart-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex justify-end transition-opacity">
+        <div class="bg-slate-900 w-full max-w-md h-full flex flex-col border-l border-slate-800 shadow-2xl p-6 overflow-y-auto">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
+                <h3 class="text-xl font-bold text-white">Your Cart</h3>
+                <button onclick="toggleCart()" class="text-slate-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
             </div>
 
-            <!-- Cart Items List -->
-            <div id="cart-items" class="flex-1 overflow-y-auto space-y-4 pr-1">
-                <p class="text-slate-500 text-sm text-center py-8">Your cart is empty.</p>
+            <!-- Cart Items Container -->
+            <div id="cart-items" class="flex-1 space-y-4 mb-6">
+                <!-- Cart items load here -->
             </div>
 
-            <!-- Cart Summary & Checkout -->
-            <div class="border-t border-slate-800 pt-4 mt-4">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-slate-400 font-medium">Total:</span>
-                    <span id="cart-total" class="text-xl font-bold text-white">$0.00</span>
+            <!-- Checkout Form & Totals -->
+            <div class="border-t border-slate-800 pt-6">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-slate-400 font-medium">Total Amount:</span>
+                    <span id="cart-total" class="text-2xl font-black text-indigo-400">$0.00</span>
                 </div>
 
-                <!-- Customer Details Form -->
-                <div class="space-y-3 mb-4">
-                    <input type="text" id="cust-name" placeholder="Your Name" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-                    <input type="text" id="cust-contact" placeholder="Phone Number or Email" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-                    <textarea id="cust-notes" placeholder="Customization details or notes..." rows="2" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"></textarea>
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Your Name</label>
+                        <input type="text" id="cust-name" placeholder="Enter your full name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Contact (Phone or Email)</label>
+                        <input type="text" id="cust-contact" placeholder="For order updates" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Custom Notes / Details</label>
+                        <textarea id="cust-notes" rows="2" placeholder="Sizes, colors, or custom request details..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition"></textarea>
+                    </div>
                 </div>
 
-                <!-- Payment Options -->
+                <!-- Payment Action Buttons -->
                 <div class="grid grid-cols-2 gap-3">
-                    <button onclick="checkout('PayPal')" class="bg-sky-600 hover:bg-sky-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition shadow-md cursor-pointer text-center">
+                    <button onclick="checkout('PayPal')" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition shadow-lg shadow-sky-600/20 cursor-pointer text-center">
                         Pay via PayPal
                     </button>
-                    <button onclick="checkout('Zelle')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition shadow-md cursor-pointer text-center">
+                    <button onclick="checkout('Zelle')" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition shadow-lg shadow-indigo-600/20 cursor-pointer text-center">
                         Pay Via Zelle
                     </button>
                 </div>
@@ -91,22 +111,22 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-slate-950 border-t border-slate-800 py-8 mt-16 text-center text-xs text-slate-500">
+    <footer class="bg-slate-950 border-t border-slate-900 py-12 mt-20 text-center text-xs text-slate-500">
         <p>&copy; 2026 SoloMadeIt &amp; Solovision Creative Group. All rights reserved.</p>
     </footer>
 
-    <!-- Frontend JavaScript Logic -->
+    <!-- Frontend Script Logic -->
     <script>
-        let catalog = [];
+        let inventory = [];
         let cart = [];
 
-        async function loadInventory() {
+        async function fetchInventory() {
             try {
-                const res = await fetch('/api/inventory');
-                catalog = await res.json();
+                const response = await fetch('/api/inventory');
+                inventory = await response.json();
                 renderCatalog();
             } catch (err) {
-                console.error("Failed to load inventory:", err);
+                console.error("Error fetching inventory:", err);
             }
         }
 
@@ -114,26 +134,31 @@
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
 
-            if (catalog.length === 0) {
-                grid.innerHTML = `<p class="text-slate-500 text-sm col-span-full text-center py-12">No inventory items available yet. Upload photos to populate catalog!</p>`;
+            if (inventory.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center bg-slate-900/40 border border-slate-800/80 rounded-2xl">
+                        <p class="text-slate-400 text-base font-medium mb-2">No inventory items uploaded yet.</p>
+                        <p class="text-slate-600 text-xs">Drop your photos in chat to populate your store catalog!</p>
+                    </div>
+                `;
                 return;
             }
 
-            catalog.forEach(item => {
+            inventory.forEach(item => {
                 grid.innerHTML += `
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
+                    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden shadow-xl hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between">
                         <div>
-                            <div class="h-48 bg-slate-900 overflow-hidden flex items-center justify-center">
-                                ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">` : `<span class="text-slate-600 text-xs">No Image Provided</span>`}
+                            <div class="h-56 bg-slate-950 overflow-hidden flex items-center justify-center relative">
+                                ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">` : `<span class="text-slate-600 text-xs font-semibold">No Image Available</span>`}
                             </div>
-                            <div class="p-5">
-                                <h4 class="text-lg font-bold text-white mb-1">${item.name}</h4>
-                                <p class="text-slate-400 text-xs mb-3 line-clamp-2">${item.description}</p>
-                                <span class="text-indigo-400 font-extrabold text-lg">$${item.price.toFixed(2)}</span>
+                            <div class="p-6">
+                                <h4 class="text-xl font-bold text-white mb-2">${item.name}</h4>
+                                <p class="text-slate-400 text-sm leading-relaxed mb-4">${item.description}</p>
+                                <div class="text-indigo-400 font-extrabold text-xl">$${item.price.toFixed(2)}</div>
                             </div>
                         </div>
-                        <div class="p-5 pt-0">
-                            <button onclick="addToCart(${item.id})" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-md cursor-pointer">
+                        <div class="p-6 pt-0">
+                            <button onclick="addToCart(${item.id})" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-indigo-600/20 cursor-pointer">
                                 Add to Cart
                             </button>
                         </div>
@@ -142,8 +167,13 @@
             });
         }
 
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
         function addToCart(id) {
-            const product = catalog.find(p => p.id === id);
+            const product = inventory.find(p => p.id === id);
             if (!product) return;
 
             const existing = cart.find(i => i.id === id);
@@ -153,53 +183,45 @@
                 cart.push({ ...product, qty: 1 });
             }
             updateCartUI();
-            openCartModal();
+            toggleCart();
         }
 
         function updateCartUI() {
-            const countEl = document.getElementById('cart-count');
-            const itemsEl = document.getElementById('cart-items');
+            const badge = document.getElementById('cart-badge');
+            const itemsContainer = document.getElementById('cart-items');
             const totalEl = document.getElementById('cart-total');
 
-            const totalCount = cart.reduce((sum, i) => sum + i.qty, 0);
-            countEl.innerText = totalCount;
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            badge.innerText = totalCount;
 
             if (cart.length === 0) {
-                itemsEl.innerHTML = `<p class="text-slate-500 text-sm text-center py-8">Your cart is empty.</p>`;
+                itemsContainer.innerHTML = `<p class="text-slate-500 text-sm text-center py-12">Your cart is empty.</p>`;
                 totalEl.innerText = '$0.00';
                 return;
             }
 
-            itemsEl.innerHTML = '';
-            let totalPrice = 0;
+            itemsContainer.innerHTML = '';
+            let total = 0;
 
             cart.forEach(item => {
-                totalPrice += item.price * item.qty;
-                itemsEl.innerHTML += `
-                    <div class="flex justify-between items-center bg-slate-950 border border-slate-800 p-3 rounded-xl">
+                total += item.price * item.qty;
+                itemsContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-slate-950 border border-slate-800/80 p-4 rounded-xl">
                         <div>
                             <h5 class="text-sm font-bold text-white">${item.name}</h5>
-                            <p class="text-xs text-slate-400">$${item.price.toFixed(2)} x ${item.qty}</p>
+                            <p class="text-xs text-slate-400">$${item.price.toFixed(2)} × ${item.qty}</p>
                         </div>
-                        <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-300 text-xs font-semibold px-2 py-1 cursor-pointer">Remove</button>
+                        <button onclick="removeFromCart(${item.id})" class="text-rose-400 hover:text-rose-300 text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-rose-500/10 cursor-pointer transition">Remove</button>
                     </div>
                 `;
             });
 
-            totalEl.innerText = `$${totalPrice.toFixed(2)}`;
+            totalEl.innerText = `$${total.toFixed(2)}`;
         }
 
         function removeFromCart(id) {
             cart = cart.filter(i => i.id !== id);
             updateCartUI();
-        }
-
-        function openCartModal() {
-            document.getElementById('cart-modal').classList.remove('hidden');
-        }
-
-        function closeCartModal() {
-            document.getElementById('cart-modal').classList.add('hidden');
         }
 
         async function checkout(payMethod) {
@@ -213,7 +235,7 @@
             const notes = document.getElementById('cust-notes').value.trim();
 
             if (!name || !contact) {
-                alert('Please enter your Name and Contact info (Phone or Email) before checking out.');
+                alert('Please enter your Name and Contact info before checking out.');
                 return;
             }
 
@@ -224,12 +246,12 @@
             };
 
             try {
-                const res = await fetch('/api/checkout', {
+                const response = await fetch('/api/checkout', {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
-                const data = await res.json();
+                const data = await response.json();
 
                 if (data.payMethod === "PayPal") {
                     window.open(data.paymentUrl, '_blank');
@@ -239,14 +261,14 @@
 
                 cart = [];
                 updateCartUI();
-                closeCartModal();
+                toggleCart();
             } catch (err) {
                 console.error("Checkout error:", err);
                 alert("Checkout failed. Please try again.");
             }
         }
 
-        loadInventory();
+        fetchInventory();
     </script>
 </body>
 </html>
