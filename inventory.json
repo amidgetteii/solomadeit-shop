@@ -1,10 +1,10 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "title": "Mt. Sinai Custom Sweatshirt Pre-Order",
     "category": "Physical Inventory",
     "desc": "Official Mt. Sinai Missionary Baptist Church custom printed sweatshirt. Total price $30.00 ($15 deposit required today/tomorrow, $15 balance due at weekend pickup). Limited run: 5 Medium, 5 Large, 5 XL.",
-    "img": "/static/mt-sinai-flyer.jpg",
+    "img": "/static/10170.jpg",
     "stock": 15,
     "options": [
       { "label": "Medium ($15.00 Deposit)", "price": 15.00 },
