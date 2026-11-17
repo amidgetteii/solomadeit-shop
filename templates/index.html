@@ -32,7 +32,7 @@
           <p class="text-xs text-zinc-400">Direct Studio Contact</p>
           <p class="text-xs font-mono font-bold text-amber-400">910-674-7501</p>
         </div>
-        <button onclick="toggleCart()" class="relative bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-amber-500/10">
+        <button onclick="toggleCart()" class="relative bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-amber-500/10 cursor-pointer">
           <span>Cart / Booking</span>
           <span id="cart-count" class="bg-zinc-950 text-amber-400 text-xs px-2 py-0.5 rounded-full font-extrabold">0</span>
         </button>
@@ -55,9 +55,9 @@
       
       <!-- Category Filters -->
       <div class="flex flex-wrap gap-2">
-        <button onclick="filterCategory('All')" class="cat-btn bg-amber-500 text-zinc-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow">All Offerings</button>
-        <button onclick="filterCategory('Physical Inventory')" class="cat-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-semibold transition">Physical Inventory</button>
-        <button onclick="filterCategory('Services & Production')" class="cat-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-semibold transition">Services & Production</button>
+        <button onclick="filterCategory('All')" class="cat-btn bg-amber-500 text-zinc-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow cursor-pointer">All Offerings</button>
+        <button onclick="filterCategory('Physical Inventory')" class="cat-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">Physical Inventory</button>
+        <button onclick="filterCategory('Services & Production')" class="cat-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">Services & Production</button>
       </div>
     </div>
   </section>
@@ -81,7 +81,7 @@
       <div>
         <div class="flex items-center justify-between border-b border-zinc-800 pb-4">
           <h3 class="text-xl font-bold text-white">Your Order / Booking Request</h3>
-          <button onclick="toggleCart()" class="text-zinc-400 hover:text-white p-2 text-sm font-bold">✕ Close</button>
+          <button onclick="toggleCart()" class="text-zinc-400 hover:text-white p-2 text-sm font-bold cursor-pointer">✕ Close</button>
         </div>
         <div id="cart-items" class="divide-y divide-zinc-800 my-4 space-y-3"></div>
       </div>
@@ -102,7 +102,8 @@
           </select>
 
           <select id="cust-pay-method" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-amber-400 font-semibold focus:outline-none focus:border-amber-500 transition">
-            <option value="PayPal">Pay Online via PayPal</option>
+            <option value="PayPal">Pay via PayPal</option>
+            <option value="ApplePay">Pay via Apple Pay</option>
             <option value="Zelle">Pay via Zelle</option>
             <option value="Cash">Cash / In-Person Payment</option>
           </select>
@@ -110,7 +111,7 @@
           <textarea id="cust-notes" rows="2" placeholder="Project details, shoot dates, custom engraving text, or specific requests..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500 transition"></textarea>
         </div>
 
-        <button onclick="submitOrder()" class="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-extrabold py-3.5 rounded-xl transition shadow-lg shadow-amber-500/10">
+        <button onclick="submitOrder()" class="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-extrabold py-3.5 rounded-xl transition shadow-lg shadow-amber-500/10 cursor-pointer">
           Submit Booking / Order Request
         </button>
       </div>
@@ -149,7 +150,7 @@
             <select id="opt-${item.id}" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2.5 text-xs text-zinc-200 focus:outline-none focus:border-amber-500 transition">
               ${item.options.map((opt, i) => `<option value="${i}">${opt.label} — $${opt.price.toFixed(2)}</option>`).join("")}
             </select>
-            <button onclick="addToCart('${item.id}')" class="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-2.5 rounded-xl text-xs transition shadow">
+            <button onclick="addToCart('${item.id}')" class="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-2.5 rounded-xl text-xs transition shadow cursor-pointer">
               Add to Request / Order
             </button>
           </div>
@@ -205,7 +206,7 @@
             </div>
             <div class="flex items-center gap-3">
               <span class="text-sm font-bold text-zinc-200">$${item.price.toFixed(2)}</span>
-              <button onclick="removeFromCart(${i})" class="text-xs text-red-400 hover:text-red-300 p-1">✕</button>
+              <button onclick="removeFromCart(${i})" class="text-xs text-red-400 hover:text-red-300 p-1 cursor-pointer">✕</button>
             </div>
           </div>
         `).join("");
@@ -246,16 +247,20 @@
       const itemLines = cart.map(i => `• ${i.title} (${i.optionLabel}) - $${i.price.toFixed(2)}`).join("\n");
 
       if (data.payMethod === "PayPal") {
-        window.open(`https://www.paypal.com/paypalme/SoloMadeIt/${data.total.toFixed(2)}`, "_blank");
+        window.open(`https://www.paypal.me/SoloMadeIt/${data.total.toFixed(2)}`, "_blank");
       } else if (data.payMethod === "Zelle") {
-        alert(`Request #${data.orderId} submitted! Total is $${data.total.toFixed(2)}. Please send Zelle payment to creativedesigntpy@gmail.com with memo #${data.orderId}.`);
+        alert(`Request #${data.orderId} submitted! Total is $${data.total.toFixed(2)}. Please complete Zelle payment to 910-391-9088.`);
+      } else if (data.payMethod === "ApplePay") {
+        alert(`Request #${data.orderId} submitted! Total is $${data.total.toFixed(2)}. Please complete Apple Pay to 910-391-9088.`);
+      } else if (data.payMethod === "Cash") {
+        alert(`Request #${data.orderId} submitted! Total is $${data.total.toFixed(2)}. Please bring cash payment upon weekend pickup.`);
       }
 
-      const mailto = `mailto:${data.studioEmail}?subject=New Service Booking / Order #${data.orderId} ($${data.total.toFixed(2)})&body=Request ID: ${data.orderId}%0D%0AClient: ${name}%0D%0AContact: ${contact}%0D%0APayment: ${data.payMethod}%0D%0ANotes: ${notes}%0D%0A%0D%0ASelected Items/Services:%0D%0A${encodeURIComponent(itemLines)}%0D%0A%0D%0ATotal Estimate: $${data.total.toFixed(2)}`;
+      const mailto = `mailto:creativedesigntpy@gmail.com?subject=New Pre-Order / Order #${data.orderId} ($${data.total.toFixed(2)})&body=Request ID: ${data.orderId}%0D%0AClient: ${name}%0D%0AContact: ${contact}%0D%0APayment Method: ${data.payMethod}%0D%0ANotes: ${notes}%0D%0A%0D%0ASelected Items:%0D%0A${encodeURIComponent(itemLines)}%0D%0A%0D%0ATotal Due: $${data.total.toFixed(2)}`;
       window.location.href = mailto;
     }
 
     fetchInventory();
   </script>
 </body>
-</html>
+</html>>
