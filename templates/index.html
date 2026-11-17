@@ -150,7 +150,7 @@
             <select id="opt-${item.id}" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2.5 text-xs text-zinc-200 focus:outline-none focus:border-amber-500 transition">
               ${item.options.map((opt, i) => `<option value="${i}">${opt.label} — $${opt.price.toFixed(2)}</option>`).join("")}
             </select>
-            <button onclick="addToCart('${item.id}')" class="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-2.5 rounded-xl text-xs transition shadow cursor-pointer">
+            <button onclick="addToCart(${item.id})" class="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-2.5 rounded-xl text-xs transition shadow cursor-pointer">
               Add to Request / Order
             </button>
           </div>
@@ -171,6 +171,8 @@
 
     function addToCart(id) {
       const product = inventory.find(p => p.id === id);
+      if (!product) return;
+
       const selectEl = document.getElementById(`opt-${id}`);
       const optIndex = parseInt(selectEl.value);
       const selectedOpt = product.options[optIndex];
@@ -263,4 +265,4 @@
     fetchInventory();
   </script>
 </body>
-</html>>
+</html>
