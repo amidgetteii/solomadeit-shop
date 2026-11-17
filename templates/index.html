@@ -150,9 +150,14 @@
             <select id="opt-${item.id}" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2.5 text-xs text-zinc-200 focus:outline-none focus:border-amber-500 transition">
               ${item.options.map((opt, i) => `<option value="${i}">${opt.label} — $${opt.price.toFixed(2)}</option>`).join("")}
             </select>
-            <button onclick="addToCart(${item.id})" class="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-2.5 rounded-xl text-xs transition shadow cursor-pointer">
-              Add to Request / Order
-            </button>
+            
+            <div class="flex items-center gap-2">
+              <label class="text-xs text-zinc-400 font-medium">Qty:</label>
+              <input type="number" id="qty-${item.id}" value="1" min="1" max="50" class="w-20 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 text-center focus:outline-none focus:border-amber-500 transition" />
+              <button onclick="addToCart('${item.id}')" class="flex-grow bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-2.5 px-3 rounded-xl text-xs transition shadow cursor-pointer">
+                Add to Order
+              </button>
+            </div>
           </div>
         </div>
       `).join("");
@@ -174,16 +179,25 @@
       if (!product) return;
 
       const selectEl = document.getElementById(`opt-${id}`);
+      const qtyEl = document.getElementById(`qty-${id}`);
       const optIndex = parseInt(selectEl.value);
+      const quantity = parseInt(qtyEl.value) || 1;
       const selectedOpt = product.options[optIndex];
 
-      cart.push({
-        id: product.id,
-        title: product.title,
-        optionIndex: optIndex,
-        optionLabel: selectedOpt.label,
-        price: selectedOpt.price
-      });
+      // Check if item with same option already exists in cart
+      const existing = cart.find(i => i.id === product.id && i.optionIndex === optIndex);
+      if (existing) {
+        existing.qty += quantity;
+      } else {
+        cart.push({
+          id: product.id,
+          title: product.title,
+          optionIndex: optIndex,
+          optionLabel: selectedOpt.label,
+          price: selectedOpt.price,
+          qty: quantity
+        });
+      }
       updateCartUI();
       toggleCart();
     }
@@ -194,7 +208,8 @@
     }
 
     function updateCartUI() {
-      document.getElementById("cart-count").innerText = cart.length;
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById("cart-count").innerText = totalCount;
       const container = document.getElementById("cart-items");
 
       if (cart.length === 0) {
@@ -204,10 +219,10 @@
           <div class="pt-3 flex justify-between items-start gap-2">
             <div>
               <p class="text-sm font-semibold text-white">${item.title}</p>
-              <p class="text-xs text-amber-400 font-mono">${item.optionLabel}</p>
+              <p class="text-xs text-amber-400 font-mono">${item.optionLabel} (Qty: ${item.qty})</p>
             </div>
             <div class="flex items-center gap-3">
-              <span class="text-sm font-bold text-zinc-200">$${item.price.toFixed(2)}</span>
+              <span class="text-sm font-bold text-zinc-200">$${(item.price * item.qty).toFixed(2)}</span>
               <button onclick="removeFromCart(${i})" class="text-xs text-red-400 hover:text-red-300 p-1 cursor-pointer">✕</button>
             </div>
           </div>
@@ -216,7 +231,7 @@
 
       const delivery = document.getElementById("cust-delivery").value;
       const shipping = (cart.length > 0 && delivery === "shipping") ? 6 : 0;
-      const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       const total = subtotal + shipping;
 
       document.getElementById("cart-total").innerText = `$${total.toFixed(2)}`;
@@ -246,7 +261,7 @@
       const name = document.getElementById("cust-name").value.trim() || "Client";
       const contact = document.getElementById("cust-contact").value.trim() || "Not provided";
       const notes = document.getElementById("cust-notes").value.trim() || "None";
-      const itemLines = cart.map(i => `• ${i.title} (${i.optionLabel}) - $${i.price.toFixed(2)}`).join("\n");
+      const itemLines = cart.map(i => `• ${i.title} (${i.optionLabel}) x ${i.qty} - $${(i.price * i.qty).toFixed(2)}`).join("\n");
 
       if (data.payMethod === "PayPal") {
         window.open(`https://www.paypal.me/SoloMadeIt/${data.total.toFixed(2)}`, "_blank");
