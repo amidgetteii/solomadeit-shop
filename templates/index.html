@@ -138,6 +138,7 @@
       grid.innerHTML = filtered.map(item => `
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden flex flex-col justify-between p-6 shadow-xl hover:border-zinc-700 transition">
           <div>
+            ${item.img ? `<div class="mb-4 overflow-hidden rounded-xl border border-zinc-800"><img src="${item.img}" alt="${item.title}" class="w-full h-auto object-cover hover:scale-105 transition duration-300"></div>` : ''}
             <div class="flex justify-between items-center text-xs text-zinc-400 mb-3">
               <span class="uppercase tracking-widest text-amber-400 font-bold">${item.category}</span>
               <span class="bg-zinc-950 px-2.5 py-1 rounded-md border border-zinc-800">${item.stock > 100 ? 'Available' : 'Stock: ' + item.stock}</span>
@@ -184,7 +185,6 @@
       const quantity = parseInt(qtyEl.value) || 1;
       const selectedOpt = product.options[optIndex];
 
-      // Check if item with same option already exists in cart
       const existing = cart.find(i => i.id === product.id && i.optionIndex === optIndex);
       if (existing) {
         existing.qty += quantity;
@@ -264,7 +264,7 @@
       const itemLines = cart.map(i => `• ${i.title} (${i.optionLabel}) x ${i.qty} - $${(i.price * i.qty).toFixed(2)}`).join("\n");
 
       if (data.payMethod === "PayPal") {
-        window.open(`https://www.paypal.me/SoloMadeIt/${data.total.toFixed(2)}`, "_blank");
+        window.open(`https://www.paypal.me/SOLOVISIONCG/${data.total.toFixed(2)}`, "_blank");
       } else if (data.payMethod === "Zelle") {
         alert(`Request #${data.orderId} submitted! Total is $${data.total.toFixed(2)}. Please complete Zelle payment to 910-391-9088.`);
       } else if (data.payMethod === "ApplePay") {
